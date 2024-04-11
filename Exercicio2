@@ -1,0 +1,103 @@
+viveAte(orc,110).
+viveAte(anao,500).
+viveAte(humano,90).
+viveAte(hobbit,100).
+viveAte(elfo,"mais de 1000 anos").
+
+sao(orc,rei).
+sao(orc,guerreiro).
+sao(elfo,rei).
+sao(elfo,guerreiro).
+sao(elfo,mago).
+sao(anao,rei).
+sao(anao,guerreiro).
+sao(anao,ferreiro).
+sao(hobbit,ladrao).
+sao(humano,rei).
+sao(humano,guerreiro).
+sao(humano,mago).
+
+lingua(orc,orces).
+lingua(elfos,portugues).
+lingua(elfos,elfico).
+lingua(anao,portugues).
+lingua(humano,portugues).
+lingua(hobbit,portugues).
+
+ehAliado(A1,A2):- lingua(A1,Lingua),
+    			lingua(A2,Lingua),
+				A2 \== A1.
+
+ficaEm(condado,leste).
+ficaEm(valfenda,centro-oeste).
+ficaEm(mordor,norte).
+ficaEm(rohan,oeste).
+
+moraEm(hobbit,condado).
+moraEm(elfo,valfenda).
+moraEm(hobbit,condado).
+moraEm(orc,mordor).
+
+personagemRaca(gandalf,humano).
+personagemRaca(bilbo,humano).
+personagemRaca(frodo,humano).
+personagemRaca(legolas,elfo).
+personagemRaca(galadriel,elfo).
+personagemRaca(gimly,anao).
+personagemRaca(boromir,humano).
+
+personagemClasse(gandalf,mago).
+personagemClasse(legolas,guerreiro).
+personagemClasse(galadriel,mago).
+personagemClasse(bilbo,ladrao).
+personagemClasse(frodo,ladrao).
+personagemClasse(boromir,guerreiro).
+personagemClasse(gimly,guerreiro).
+
+
+
+nasceuEm(gandalf,valfenda).
+nasceuEm(galadriel,valfenda).
+nasceuEm(legolas,valfenda).
+nasceuEm(boromir,rohan).
+nasceuEm(bilbo,condado).
+nasceuEm(frodo,condado).
+
+temCasaEm(bilbo,condado).
+temCasaEm(frodo,condado).
+
+tempoDeVida(Personagem,Tempo):- personagemRaca(Personagem,Raca),
+    							viveAte(Raca,Tempo),    							
+    							Raca \== humano.
+
+
+
+tempoDeVida(Personagem,Tempo):- personagemClasse(Personagem,Classe),
+    						personagemRaca(Personagem,Raca),
+    						Tempo = "Mais de 100 anos",
+    						Raca == humano,
+    						Classe == mago.
+
+tempoDeVida(Personagem,Tempo):- personagemClasse(Personagem,Classe),
+    						personagemRaca(Personagem,Raca),
+    						Tempo = "Mais de 100 anos",
+    						Raca == humano,
+    						Classe \== mago.
+    						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
