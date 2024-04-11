@@ -1,0 +1,56 @@
+%1) A partir da do arquivo 1-resumo.txt, em que há um exemplo de representação de árvore genealógica,
+%crie sua própria representação da família.
+
+%Por exemplo,
+
+%progenitor(zeno,jurandir).
+%progenitor(jurandir,alexandre).
+%progenitor(jurandir,tina).
+%progenitor(alexandre,dante).
+
+%Em cima disso, crie as regras:
+
+%avo(Avo, Neto)
+
+%tio(Tio, Sobrinho)
+
+%irmaos(Irmao1, Irmao2)
+
+%cunhado(Pessoa1, Pessoa2)
+
+progenitor(jorge,leo).
+progenitor(inacio,jorge).
+progenitor(jorge,eduarda).
+progenitor(leo,juninho).
+progenitor(helena,juninho).
+progenitor(juninho,"filho do Juninho").
+progenitor("Esposa do Juninho","filho do Juninho").
+progenitor(leo,"irmão do Juninho").
+progenitor(helena,"irmão do Juninho").
+
+
+
+
+
+avo(A,N) :- progenitor(A,P),
+            progenitor(P,N).
+
+irmaos(A,B) :- progenitor(Pai,A),
+               progenitor(Pai,B),
+               A \== B. 
+
+tio(T,S) :- irmaos(T,I),
+            progenitor(I,S),
+            T \== S.
+
+cunhado(C,J):- progenitor(C,Filho),
+    		   progenitor(MaridoEsposa,Filho),
+    		   irmaos(MaridoEsposa,J),
+    			not(irmaos(C,J)),
+    			C \==MaridoEsposa.		
+
+cunhado(C,J):- progenitor(J,Filho),
+    		   progenitor(MaridoEsposa,Filho),
+    		   irmaos(MaridoEsposa,C),
+    			not(irmaos(J,C)),
+    			J \==MaridoEsposa.		
